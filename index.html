@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arte em Agulha | Bordados Artísticos por Maruza Lobo Lima</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+        
+        :root {
+            --primary: #D23D73;
+            --secondary: #3D9970;
+            --accent: #FFA500;
+            --light: #FFF9F9;
+            --dark: #3A3A3A;
+            --pink: #FF6B9D;
+            --purple: #9D6BFF;
+            --teal: #6BFFD2;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .embroidery-bg {
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(210, 61, 115, 0.08) 0%, transparent 20%),
+                radial-gradient(circle at 90% 30%, rgba(61, 153, 112, 0.08) 0%, transparent 20%),
+                radial-gradient(circle at 50% 80%, rgba(255, 165, 0, 0.08) 0%, transparent 20%);
+        }
+        
+        .stitch-border {
+            position: relative;
+        }
+        
+        .stitch-border::after {
+            content: "";
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 2px dashed var(--primary);
+            border-radius: inherit;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .floating-delay-1 {
+            animation-delay: 1s;
+        }
+        
+        .floating-delay-2 {
+            animation-delay: 2s;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .btn-embroidery {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-embroidery:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        
+        .btn-embroidery::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.3) 50%, transparent 55%);
+            background-size: 200% 200%;
+            animation: shine 2s infinite;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .btn-embroidery:hover::before {
+            opacity: 1;
+        }
+        
+        @keyframes shine {
+            0% { background-position: -100% -100%; }
+            100% { background-position: 100% 100%; }
+        }
+        
+        .form-field {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        
+        .form-field input,
+        .form-field textarea,
+        .form-field select {
+            width: 100%;
+            padding: 1rem 0;
+            border: none;
+            border-bottom: 2px solid var(--secondary);
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .form-field input:focus,
+        .form-field textarea:focus,
+        .form-field select:focus {
+            outline: none;
+            border-bottom-color: var(--primary);
+        }
+        
+        .form-field label {
+            position: absolute;
+            top: 1rem;
+            left: 0;
+            transition: all 0.3s ease;
+            color: var(--dark);
+        }
+        
+        .form-field input:focus + label,
+        .form-field textarea:focus + label,
+        .form-field select:focus + label,
+        .form-field input:not(:placeholder-shown) + label,
+        .form-field textarea:not(:placeholder-shown) + label,
+        .form-field select:not(:placeholder-shown) + label {
+            top: -1rem;
+            font-size: 0.8rem;
+            color: var(--primary);
+        }
+        
+        .embroidery-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin: 0 auto 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .embroidery-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .embroidery-card {
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .embroidery-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .embroidery-card:hover::before {
+            opacity: 1;
+        }
+        
+        .embroidery-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .embroidery-card-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 1.5rem;
+            color: white;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .embroidery-card:hover .embroidery-card-content {
+            transform: translateY(0);
+        }
+        
+        .menu-item {
+            position: relative;
+        }
+        
+        .menu-item::after {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+        
+        .menu-item:hover::after {
+            width: 100%;
+        }
+        
+        .text-shadow {
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .bg-pattern {
+            background-image: 
+                url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 20.5V18H0v-2h20v-2H0v-2h20v-2H0V8h20V6H0V4h20V2H0V0h22v20h2V0h2v20h2V0h2v20h2V0h2v20h2V0h2v20h2v2H20v-1.5z' fill='%23D23D73' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+        
+        @media (max-width: 768px) {
+            .embroidery-icon {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body class="embroidery-bg">
+    <!-- Header -->
+    <header class="fixed w-full z-50 bg-white bg-opacity-90 backdrop-blur-sm shadow-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold text-primary font-display flex items-center">
+                    <i class="fas fa-cut text-primary mr-2"></i>
+                    Arte em Agulha
+                </a>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#sobre" class="menu-item text-dark hover:text-primary transition">Sobre Mim</a>
+                    <a href="#repositorios" class="menu-item text-dark hover:text-primary transition">Repositórios</a>                    <a href="#contato" class="menu-item text-dark hover:text-primary transition">Contato</a>
+                </nav>
+                
+                <button class="md:hidden text-2xl text-primary focus:outline-none" id="menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white w-full py-4 px-6 shadow-lg" id="mobile-menu">
+            <div class="flex flex-col space-y-4">
+                <a href="#sobre" class="menu-item text-dark hover:text-primary transition py-2">Sobre Mim</a>
+                <a href="#repositorios" class="menu-item text-dark hover:text-primary transition py-2">Repositórios</a>
+                <a href="#contato" class="menu-item text-dark hover:text-primary transition py-2">Contato</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary opacity-10 floating"></div>
+            <div class="absolute top-1/3 right-1/4 w-40 h-40 rounded-full bg-secondary opacity-10 floating-delay-1"></div>
+            <div class="absolute bottom-1/4 left-1/3 w-24 h-24 rounded-full bg-accent opacity-10 floating-delay-2"></div>
+            <div class="absolute bottom-1/3 right-1/3 w-36 h-36 rounded-full bg-primary opacity-10 floating"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 py-20 relative z-10 text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 font-display text-primary fade-in">
+                <span class="inline-block transform rotate-3 text-pink-600">A</span>rte 
+                <span class="inline-block transform -rotate-2 text-purple-600">e</span>m 
+                <span class="inline-block transform rotate-1 text-teal-600">A</span>gulha
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-dark max-w-2xl mx-auto fade-in">
+                Transformando linhas em histórias, pontos em emoções
+            </p>
+            <div class="flex flex-wrap justify-center gap-6 fade-in">
+                <a href="#contato" class="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-8 py-3 rounded-full font-bold btn-embroidery shadow-lg">
+                    Solicitar Trabalho
+                </a>
+                <a href="#sobre" class="bg-gradient-to-r from-teal-500 to-green-600 text-white px-8 py-3 rounded-full font-bold btn-embroidery shadow-lg">
+                    Conheça a Artista
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-0 right-0 text-center animate-bounce">
+            <a href="#sobre" class="text-primary text-2xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Sobre Mim Section -->
+    <section id="sobre" class="py-20 bg-white relative">
+        <div class="absolute top-0 left-0 w-full h-16 -mt-16 bg-gradient-to-b from-transparent to-white"></div>
+        
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center font-display text-primary relative">
+                <span class="relative inline-block">
+                    Sobre Mim
+                    <span class="absolute -bottom-2 left-0 w-full h-1 bg-primary"></span>
+                </span>
+            </h2>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12 mb-20 bg-pattern p-8 rounded-3xl">
+                <div class="lg:w-1/2 relative">
+                    <div class="relative overflow-hidden rounded-2xl shadow-xl transform rotate-1 border-4 border-white">
+                        <img src="maruza.jpeg"
+                              alt="Maruza Lobo Lima trabalhando"
+                              class="w-full h-auto object-cover transition-transform duration-500 hover:scale-105">
+                    </div>
+                    <div class="text-center mt-6">
+                        <h3 class="text-3xl font-bold text-primary font-display">Maruza Lobo Lima</h3>
+                        <p class="text-gray-600">Artista de Bordados</p>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <p class="text-lg mb-6 leading-relaxed">
+                        Desde criança, sempre fui fascinada pela magia de transformar fios em arte. 
+                        Cada ponto que dou é carregado de intenção e amor, criando peças únicas que 
+                        contam histórias e preservam memórias.
+                    </p>
+                    <p class="text-lg mb-8 leading-relaxed">
+                        Meu ateliê é meu santuário, onde dedico horas a cada detalhe, buscando 
+                        perfeição em cada obra. Acredito que o bordado vai além da técnica - é uma 
+                        forma de expressão que conecta pessoas e emoções.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="embroidery-icon bg-pink-50">
+                                <i class="fas fa-paw text-pink-600 text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-dark">Bordado Realista</h4>
+                            <p class="text-sm text-gray-600">Para animais de estimação</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="embroidery-icon bg-purple-50">
+                                <i class="fas fa-palette text-purple-600 text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-dark">Ilustração Têxtil</h4>
+                            <p class="text-sm text-gray-600">Criações artísticas únicas</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="embroidery-icon bg-teal-50">
+                                <i class="fas fa-ring text-teal-600 text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-dark">Porta Alianças</h4>
+                            <p class="text-sm text-gray-600">Para momentos especiais</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="embroidery-icon bg-pink-50">
+                                <i class="fas fa-baby text-pink-600 text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-dark">Maternidade</h4>
+                            <p class="text-sm text-gray-600">Decoração especial</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="embroidery-icon bg-purple-50">
+                                <i class="fas fa-heart text-purple-600 text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-dark">Personalizados</h4>
+                            <p class="text-sm text-gray-600">Peças exclusivas</p>
+                        </div>
+                        <div class="text-center">
+                            <div class="embroidery-icon bg-teal-50">
+                                <i class="fas fa-ellipsis-h text-teal-600 text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-dark">E muito mais</h4>
+                            <p class="text-sm text-gray-600">Diversas técnicas</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gradient-to-r from-pink-50 to-purple-50 rounded-3xl p-8 md:p-12 relative overflow-hidden border border-pink-100">
+                <div class="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-pink-400 opacity-10"></div>
+                <div class="absolute -bottom-10 -left-10 w-40 h-40 rounded-full bg-purple-400 opacity-10"></div>
+                
+                <div class="relative z-10">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6 text-center font-display text-primary">
+                        Minha Jornada com o Bordado
+                    </h3>
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="text-center bg-white p-6 rounded-xl shadow-sm">
+                            <div class="text-5xl text-pink-600 font-display mb-4">2005</div>
+                            <p class="text-gray-700">
+                                Primeiros contatos com o bordado, aprendendo técnicas básicas com minha avó
+                            </p>
+                        </div>
+                        <div class="text-center bg-white p-6 rounded-xl shadow-sm">
+                            <div class="text-5xl text-purple-600 font-display mb-4">2012</div>
+                            <p class="text-gray-700">
+                                Início dos estudos em técnicas avançadas e desenvolvimento do estilo próprio
+                            </p>
+                        </div>
+                        <div class="text-center bg-white p-6 rounded-xl shadow-sm">
+                            <div class="text-5xl text-teal-600 font-display mb-4">2018</div>
+                            <p class="text-gray-700">
+                                Criação do Arte em Agulha e profissionalização do trabalho artístico
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Repositórios Section -->
+    <section id="repositorios" class="py-20 bg-gradient-to-br from-pink-50 to-purple-50 relative">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center font-display text-primary relative">
+                <span class="relative inline-block">
+                    Meus Trabalhos
+                    <span class="absolute -bottom-2 left-0 w-full h-1 bg-primary"></span>
+                </span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- Portfolio Item 1 -->
+                <a href="#" class="embroidery-card h-96 rounded-2xl overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1583744949093-5aace6a96061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                          alt="Bordado de animal de estimação"
+                          class="w-full h-full object-cover">
+                    <div class="embroidery-card-content">
+                        <h3 class="text-xl font-bold mb-2 font-display">Bordados de Pets</h3>
+                        <p class="text-sm">Retratos realistas em bordado</p>
+                    </div>
+                </a>
+                
+                <!-- Portfolio Item 2 -->
+                <a href="#" class="embroidery-card h-96 rounded-2xl overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1592318385831-b0e71a5d3a8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                          alt="Porta alianças bordado"
+                          class="w-full h-full object-cover">
+                    <div class="embroidery-card-content">
+                        <h3 class="text-xl font-bold mb-2 font-display">Porta Alianças</h3>
+                        <p class="text-sm">Peças exclusivas para casamentos</p>
+                    </div>
+                </a>
+                
+                <!-- Portfolio Item 3 -->
+                <a href="#" class="embroidery-card h-96 rounded-2xl overflow-hidden relative">
+                    <img src="https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                          alt="Decoração de maternidade"
+                          class="w-full h-full object-cover">
+                    <div class="embroidery-card-content">
+                        <h3 class="text-xl font-bold mb-2 font-display">Maternidade</h3>
+                        <p class="text-sm">Itens especiais para bebês</p>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-lg mb-6">Para acompanhar mais trabalhos, visite meu Instagram:</p>
+                <a href="https://instagram.com/arteemagulha" target="_blank"
+                    class="inline-flex items-center bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-3 rounded-full font-bold btn-embroidery shadow-lg">
+                    <i class="fab fa-instagram text-xl mr-2"></i>
+                    @arteemagulha
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Entre em Contato Section -->
+    <section id="contato" class="py-20 bg-gradient-to-br from-pink-600 to-purple-700 text-white relative">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-white floating"></div>
+            <div class="absolute top-1/3 right-1/4 w-40 h-40 rounded-full bg-white floating-delay-1"></div>
+            <div class="absolute bottom-1/4 left-1/3 w-24 h-24 rounded-full bg-white floating-delay-2"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center font-display text-white relative">
+                <span class="relative inline-block">
+                    Entre em Contato
+                    <span class="absolute -bottom-2 left-0 w-full h-1 bg-white"></span>
+                </span>
+            </h2>
+            
+            <div class="max-w-2xl mx-auto bg-white bg-opacity-20 backdrop-blur-sm rounded-3xl p-8 md:p-12 shadow-xl">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 font-display">Instagram</h3>
+                        <p class="mb-4">Acompanhe meu trabalho diário</p>
+                        <a href="https://instagram.com/arteemagulha" target="_blank"
+                            class="inline-block bg-white text-pink-600 px-6 py-2 rounded-full font-bold hover:bg-opacity-90 transition shadow-md">
+                            @arteemagulha
+                        </a>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="text-4xl mb-4">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2 font-display">WhatsApp</h3>
+                        <p class="mb-4">Para orçamentos</p>
+                        <a href="https://wa.me/5565981407734" target="_blank"
+                            class="inline-block bg-white text-pink-600 px-6 py-2 rounded-full font-bold hover:bg-opacity-90 transition shadow-md">
+                            +55 65 98140-7734
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <p class="mb-4">Horário de Atendimento:</p>
+                    <p>Segunda a Sexta: 9h às 18h</p>
+                    <p>Sábado: 9h às 13h</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <a href="#" class="text-2xl font-bold text-primary font-display flex items-center justify-center md:justify-start">
+                        <i class="fas fa-cut text-primary mr-2"></i>
+                        Arte em Agulha
+                    </a>
+                    <p class="mt-2 text-gray-300">Bordados artísticos por Maruza Lobo Lima</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="https://instagram.com/arteemagulha" target="_blank" class="text-xl text-gray-300 hover:text-primary transition">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/5565981407734" target="_blank" class="text-xl text-gray-300 hover:text-primary transition">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Arte em Agulha. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            this.innerHTML = menu.classList.contains('hidden') ? 
+                '<i class="fas fa-bars"></i>' : '<i class="fas fa-times"></i>';
+        });
+        
+        // Form submission
+        document.getElementById('trabalho-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+            const tipo = document.getElementById('tipo').value;
+            const descricao = document.getElementById('descricao').value;
+            const mensagem = document.getElementById('mensagem').value;
+            
+            // In a real implementation, you would send this data to your server
+            // Here we'll simulate sending an email
+            const mailtoLink = `mailto:maruzacloud@gmail.com?subject=Solicitação de Trabalho - Arte em Agulha&body=Nome: ${nome}%0D%0AEmail: ${email}%0D%0ATipo: ${tipo}%0D%0ADescrição: ${descricao}%0D%0AMensagem: ${mensagem}`;
+            
+            // Open mail client
+            window.location.href = mailtoLink;
+            
+            // Show success message
+            alert(`Obrigado, ${nome}! Sua solicitação foi recebida. Entrarei em contato em breve pelo email ${email}.`);
+            
+            // Reset form
+            this.reset();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    const menuToggle = document.getElementById('menu-toggle');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                }
+            });
+        });
+        
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeIn');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
